@@ -1,11 +1,12 @@
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 require('dotenv').config();
+const cors = require('./cors')
 const app = express();
 const port = process.env.PORT || 5000;
 
 // middleware
-app.use(cors())
+app.use(cors)
 app.use(express.json());
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
@@ -25,7 +26,7 @@ async function run() {
 
         // const spotCollection = client.db("tourismSpot").collection("places");
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
         const spotCollection = client.db("tourismSpot").collection("places");
         // Send a ping to confirm a successful connection
         // await client.db("admin").command({ ping: 1 });
@@ -84,13 +85,14 @@ async function run() {
                 console.log(result);
                 res.send(result)
         })
+
+        
     } finally {
         // Ensures that the client will close when you finish/error
         // await client.close();
     }
 }
 run().catch(console.dir);
-
 
 app.get('/', (req, res) => {
     res.send('Tourism management server is running')
