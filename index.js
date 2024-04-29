@@ -28,9 +28,12 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         const spotCollection = client.db("tourismSpot").collection("places");
+        const countryCollection = client.db("tourismCountry").collection("country");
+
         // Send a ping to confirm a successful connection
         // await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
+
          
         app.get('/AddTouristSpot', async (req, res) => {
             const cursor = spotCollection.find();
@@ -38,7 +41,12 @@ async function run() {
             res.send(result);
         })
 
-        
+        app.get('/countries', async (req, res) => {
+            const cursor = countryCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
         app.post("/AddTouristSpot", async (req, res) => {
             console.log(req.body);
             const result = await spotCollection.insertOne(req.body);
