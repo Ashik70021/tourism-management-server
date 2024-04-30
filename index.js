@@ -75,6 +75,7 @@ async function run() {
                     image: req.body.image,
                     location: req.body.location,
                     short_description: req.body.short_description,
+                    average_cost:req.body.average_cost,
                     seasonality: req.body.seasonality,
                     totalVisitorsPerYear: req.body.totalVisitorsPerYear,
                 }
